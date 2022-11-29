@@ -2,6 +2,8 @@ package com.leetcode.easy;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /***
@@ -12,18 +14,21 @@ import java.util.stream.Collectors;
  */
 public class LongestCommonPrefix {
 
-    public static String resolution(String[] strs) {
-        String result = "";
-        for (int i = 0; i < strs[0].length(); i++) {
-            List<Character> chars = collectCharsAtIndex(i, List.of(strs));
+    private LongestCommonPrefix() {
+    }
+
+    public static String resolution(String[] strings) {
+        StringBuilder result = new StringBuilder("");
+        for (int i = 0; i < strings[0].length(); i++) {
+            List<Character> chars = collectCharsAtIndex(i, List.of(strings));
 
             if (isLettersCommon(chars)) {
-                result += getLetter(chars);
+                result.append(getLetter(chars));
             } else {
                 break;
             }
         }
-        return result;
+        return result.toString();
     }
 
     private static String getLetter(List<Character> letters) {
@@ -46,7 +51,7 @@ public class LongestCommonPrefix {
         try {
             chars = words.stream().map(w -> w.charAt(index)).collect(Collectors.toList());
         } catch (IndexOutOfBoundsException ex) {
-            System.err.println("Index out of bounds.");
+            Logger.getLogger("my log").log(Level.WARNING, ex.getMessage());
         }
         return chars;
     }
